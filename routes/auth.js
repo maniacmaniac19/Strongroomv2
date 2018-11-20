@@ -9,9 +9,10 @@ module.exports = (passport) => {
     router.post('/users', (req, res) => {
         const data = req.body;
         username = data.username;
-        password = db.Users.hashPassword(data.password);
+        // password = db.Users.hashPassword(data.password);
+        password = data.password;
         console.log(data);
-        db.Users.create({username: username, password :data.password})
+        db.Users.create({username: username, password : password})
         .then(data =>{
             console.log(data)
             res.status(200).json({
@@ -33,7 +34,7 @@ module.exports = (passport) => {
 
     router.post('/login', passport.authenticate('local',{
         failureRedirect:'/login',
-        successRedirect:'/users'
+        successRedirect:'/landing'
     }),(req, res) =>{
         res.send('hey')
     });

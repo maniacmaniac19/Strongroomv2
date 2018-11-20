@@ -1,32 +1,43 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
 // import axios from 'axios';
-import Nav from './components/nav';
 import Login from './pages/login';
+import Landing from './pages/landing';
+import { Router, Link } from "@reach/router";
 
+
+// const App = () => (
+//   <div> 
+    
+//     <Router>
+//           <Landing path="/landing" />
+//           <Login path="/login" />
+//         </Router>
+//   </div>
+// );
 class App extends Component {
   state = {
-    loginName : '',
-    isLoggedIn : false
+    loginName: '',
+    isLoggedIn: false
   }
 
-  // axios.post('/user', {
-  //   username: req.body.username,
-  //   password: req.body.password
-  // })
-  // .then(function (response) {
-  //   console.log(response);
-  // })
-  // .catch(function (error) {
-  //   console.log(error);
-  // });
- 
+ changelogin = event => {
+   event.preventDefault()
+   console.log(this.state.loginName)
+   this.setState({ loginName: event.target.value })
+
+ }
+
   render() {
     return (
       <div className="App">
-      <Login/>
+        {/* <Login /> */}
         
+        <Router>
+          <Landing path="/landing" />
+          <Login path="/login" />
+        </Router>
+
       </div>
     );
   }
