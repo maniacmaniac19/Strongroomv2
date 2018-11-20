@@ -1,8 +1,41 @@
 const express = require("express");
 const router = express.Router();
 const path = require('path');
-// const db = require('../../models');
+const db = require('../models')
 // const en = require('../../crypto');
+
+// router.post('/users', (req, res) => {
+//     db.Users.create(req.body)
+//     .then(data =>{
+//         console.log(data)
+//         res.status(200).json({
+//             data: data
+//         })
+//     })
+//     .catch(err =>{
+//         res.status(500).json({
+//             error: err
+//         })
+//     });
+// });
+
+router.get('/users', (req, res) =>{
+    db.Users.find({})
+    .then(data => {
+        console.log(data)
+        res.status(200).json(data)
+    })
+
+    .catch(err => {
+        console.log(err)
+        res.json(err)
+    })
+    
+});
+
+// router.delete('/users/_id', (req, res)=> {
+//     db.Users.rev
+// })
 
 // router.get('/api/secrets', function (req, res) {
 // 	db.pword_data.findAll({}).then(function (response, err) {
