@@ -9,39 +9,29 @@ export default class LoginBlock extends Component {
         super(props);
         this.state = {
             username: '',
+            password: ''
         }
+        this.onChange = this.onChange.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
     }
 
-    passwordGrab(event) {
-        console.log(event.target.value)
-        this.setState({password: event.target.value})
-    }
-
-    usernameGrab(event) {
-        console.log(event.target.value)
-        this.setState({username: event.target.value})
+    onChange(event){
+        this.setState({
+            [event.target.name]: event.target.value
+        });
     }
 
     handleLogin = (event) => {
         event.preventDefault();
-        console.log('Step 1')
-        axios.post('/login', (req, res) => {
-            console.log("this is happening")
-            console.log(req.body)
-        })
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        this.setState({
+        
+        const userData = {
             username: this.state.username,
             password: this.state.password
-        });   
-        console.log(this.state.username);
-        console.log(this.state.password)
-        
+        };
+        axios.post('/login', userData).then(res => {
+            this.props.onLogin(res.data);
+        }).catch(err => console.log(err));
+         
     }
     render(){
         return(
@@ -49,14 +39,15 @@ export default class LoginBlock extends Component {
 
                 <form>
                     <label>Username:</label><br/>
-                    <input type="username" value={this.state.username} onChange={(event) => this.usernameGrab(event)} /><br/><br/>
+                    <input type="text" name="username" value={this.state.username} onChange={this.onChange} /><br/><br/>
                     <label>Password:  </label><br/>
-                    <input type="password" value={this.state.password} onChange={(event) => this.passwordGrab(event)} /><br/><br/>
+                    <input type="password" name="password" value={this.state.password} onChange={this.onChange} /><br/><br/>
                     <button onClick={(event)=>this.handleLogin(event)}>Login</button>
                 </form>
             </div>
         )
     }
+
 }
 
 // (

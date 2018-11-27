@@ -6,7 +6,7 @@ import LoginBlock from '../components/loginblock'
 const Login = props => (
     <div>
     <Nav/>
-    <LoginBlock/>
+    <LoginBlock onLogin={props.onLogin} />
   </div>
 )
 
