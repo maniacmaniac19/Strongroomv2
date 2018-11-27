@@ -36,7 +36,7 @@ module.exports = (passport) => {
         failureRedirect:'/login',
         successRedirect:'/landing'
     }),(req, res) =>{
-        res.send('hey')
+        console.log('something else')
     });
     return router;
 
