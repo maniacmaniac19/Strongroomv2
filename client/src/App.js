@@ -4,27 +4,40 @@ import './App.css';
 import Login from './pages/login';
 import Landing from './pages/landing';
 import { Router, Link, Redirect } from "@reach/router";
+import Modal from './components/modal';
 
 
-// const App = () => (
-//   <div> 
-    
-//     <Router>
-//           <Landing path="/landing" />
-//           <Login path="/login" />
-//         </Router>
-//   </div>
-// );
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loginName: '',
       isLoggedIn: false,
-      user: {}
+      user: {},
+      // modal: false,
+      show: false
     };
     this.onLogin = this.onLogin.bind(this);
+    this.showModal = this.showModal.bind(this);
+    // this.toggleModal = this.toggleModal.bind(this);
   }
+
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  hideModal = () => {
+    this.setState({ show: false });
+  };
+
+
+
+// toggleModal = event => {
+//   this.setState({
+//     modal: !this.state.modal
+//   });
+// }
 
  changelogin = event => {
    event.preventDefault()
@@ -53,7 +66,13 @@ class App extends Component {
     return (
       <div className="App">
         {/* <Login /> */}
-        
+        <button type="button" onClick={this.showModal}>
+          open
+        </button>
+        <Modal show={this.state.show} handleClose={this.hideModal}>
+          <p>Modal</p>
+          <p>Data</p>
+        </Modal>
         <Router>
           {/* <Redirect from ='/' to ='/login'/> */}
           {route}

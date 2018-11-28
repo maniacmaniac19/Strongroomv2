@@ -1,3 +1,9 @@
 .slogan{
-    text-align: left
+    text-align: left;
+    color: white;
+    font-family: 'EB Garamond', serif;
+}
+
+nav{
+    margin-bottom: 15px;
 }

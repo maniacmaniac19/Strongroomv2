@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+import axios from 'axios'
+
 
 
 
@@ -42,7 +43,7 @@ export default class LoginBlock extends Component {
                     <input type="text" name="username" value={this.state.username} onChange={this.onChange} /><br/><br/>
                     <label>Password:  </label><br/>
                     <input type="password" name="password" value={this.state.password} onChange={this.onChange} /><br/><br/>
-                    <button onClick={(event)=>this.handleLogin(event)}>Login</button>
+                    <button className =" btn btn-primary" onClick={(event)=>this.handleLogin(event)}>Login</button>
                 </form>
             </div>
         )
