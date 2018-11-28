@@ -74,6 +74,7 @@ class App extends Component {
           <p>Data</p>
         </Modal>
         <Router>
+          {/* <Landing/> */}
           {/* <Redirect from ='/' to ='/login'/> */}
           {route}
         </Router>
