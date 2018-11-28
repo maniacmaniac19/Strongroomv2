@@ -31,6 +31,10 @@ class App extends Component {
     this.setState({ show: false });
   };
 
+  vaultAdd = (props) => {
+    console.log('Vault Add function works!')
+  }
+
 
 
 // toggleModal = event => {
@@ -69,9 +73,7 @@ class App extends Component {
         <button type="button" onClick={this.showModal}>
           open
         </button>
-        <Modal show={this.state.show} handleClose={this.hideModal}>
-          <p>Modal</p>
-          <p>Data</p>
+        <Modal show={this.state.show} handleClose={this.hideModal} handleAdd={this.vaultAdd}>
         </Modal>
         <Router>
           {/* <Landing/> */}

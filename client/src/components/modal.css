@@ -8,6 +8,7 @@
   }
   
   .modal-main {
+    padding-top: 10px;
     position:fixed;
     background: white;
     width: 80%;
@@ -15,6 +16,8 @@
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
+    text-align: left;
+    border-radius: 4px;
   }
   
   .display-block {
@@ -24,3 +27,17 @@
   .display-none {
     display: none;
   }
+
+  .modalbtn{
+      float: right;
+  }
+
+  .addbtn{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.addbtn{
+    padding-right: 10px;
+    padding-left: 10px;
+}
