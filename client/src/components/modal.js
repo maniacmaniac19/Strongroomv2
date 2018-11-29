@@ -1,10 +1,10 @@
-import React from "react";
+import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import '../components/modal.css';
 
 
 
-const Modal = ({ handleClose, show, children }) => {
+const Modal = ({ handleClose, show, handleRandom, children }) => {
     const showHideClassName = show ? "modal display-block" : "modal display-none";
   
     return (
@@ -21,6 +21,11 @@ const Modal = ({ handleClose, show, children }) => {
                     <input type="text" className="form-control form-control-sm urlInput" placeholder=""></input>
                 </div>
 
+                <div className="form-group">
+                    <label className="col-form-label col-form-label-sm" for="usernameInput">Username:</label>
+                    <input type="text" className="form-control form-control-sm urlInput" placeholder="Username"></input>
+                </div>
+
                 <div className="form-group pwdToggle">
                     <label className="col-form-label col-form-label-sm" for="inputSmall">Password</label>
                     <div className="input-group">
@@ -31,7 +36,7 @@ const Modal = ({ handleClose, show, children }) => {
                     </div>
                 </div>
                 <div className='form-group'>             
-            <input type="button" value="Generate" className="btn btn-primary btn-sm" id="generate"></input>
+            <input type="button" value="Generate" className="btn btn-primary btn-sm {handleRandom}" id="generate"></input>
             </div> 
             <hr/>
 
@@ -44,4 +49,5 @@ const Modal = ({ handleClose, show, children }) => {
     );
   };
 
-export default Modal;
+
+  export default Modal;

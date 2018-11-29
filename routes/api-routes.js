@@ -33,6 +33,16 @@ router.get('/users', (req, res) =>{
     
 });
 
+router.post('/secrets', (req,res) => {
+    db.Secrets.create(req.body)
+      .then(function (data) {
+        res.json(data);
+      })
+      .catch(function (err) {
+        res.json(err);
+      });
+})
+
 // router.delete('/users/_id', (req, res)=> {
 //     db.Users.rev
 // })

@@ -35,19 +35,16 @@ class App extends Component {
     console.log('Vault Add function works!')
   }
 
-
-
-// toggleModal = event => {
-//   this.setState({
-//     modal: !this.state.modal
-//   });
-// }
+  onChange(event){
+    this.setState({
+        [event.target.name]: event.target.value
+    });
+}
 
  changelogin = event => {
    event.preventDefault()
    console.log(this.state.loginName)
    this.setState({ loginName: event.target.value })
-
  }
 
  onLogin(user) {
@@ -57,12 +54,18 @@ class App extends Component {
    });
  }
 
+ generateNumber = event =>{
+   event.preventDefault();
+   console.log(Math.random().toString(36).slice(-10));
+ }
+ 
+
   render() {
 
     let route;
 
     if (this.state.isLoggedIn) {
-      route = <Landing path='/' />;
+      route = <Landing path='/' showModal={this.showModal}/>;
 
     } else {
       route = <Login path = '/' onLogin={this.onLogin} />
@@ -73,7 +76,7 @@ class App extends Component {
         <button type="button" onClick={this.showModal}>
           open
         </button>
-        <Modal show={this.state.show} handleClose={this.hideModal} handleAdd={this.vaultAdd}>
+        <Modal show={this.state.show} handleClose={this.hideModal} handleRandom={this.generateNumber} handleAdd={this.vaultAdd}>
         </Modal>
         <Router>
           {/* <Landing/> */}
