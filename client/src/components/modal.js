@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import '../components/modal.css';
 
 
-
-const Modal = ({ handleClose, show, handleRandom, children }) => {
+//how to handle the props listed below
+const Modal = () => {
     const showHideClassName = show ? "modal display-block" : "modal display-none";
   
     return (
@@ -36,14 +36,14 @@ const Modal = ({ handleClose, show, handleRandom, children }) => {
                     </div>
                 </div>
                 <div className='form-group'>             
-            <input type="button" value="Generate" className="btn btn-primary btn-sm {handleRandom}" id="generate"></input>
+            <input type="button" value="Generate" className="btn btn-primary btn-sm" onClick={this.props.handleRandom} id="generate"></input>
             </div> 
             <hr/>
 
           <button className= "btn btn-primary addbtn modalbtn"
         //    onClick={handleAdd}
            >Save Changes</button>
-          <button className= "btn btn-primary closebtn modalbtn" onClick={handleClose}>Close</button>
+          <button className= "btn btn-primary closebtn modalbtn" onClick={this.props.handleClose}>Close</button>
         </section>
       </div>
     );

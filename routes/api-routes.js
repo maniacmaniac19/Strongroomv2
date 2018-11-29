@@ -33,6 +33,19 @@ router.get('/users', (req, res) =>{
     
 });
 
+router.get('/secrets', (req, res) =>{
+    db.Secrets.find({})
+    .then(data => {
+        console.log(data)
+        res.status(200).json(data)
+    })
+    .catch(err => {
+        console.log(err)
+        res.json(err)
+    })
+    
+});
+
 router.post('/secrets', (req,res) => {
     db.Secrets.create(req.body)
       .then(function (data) {
