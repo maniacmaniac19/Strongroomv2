@@ -15,12 +15,10 @@ class App extends Component {
       loginName: '',
       isLoggedIn: false,
       user: {},
-      // modal: false,
       show: false
     };
     this.onLogin = this.onLogin.bind(this);
     this.showModal = this.showModal.bind(this);
-    // this.toggleModal = this.toggleModal.bind(this);
   }
 
   showModal = () => {
@@ -33,6 +31,10 @@ class App extends Component {
 
   vaultAdd = (props) => {
     console.log('Vault Add function works!')
+  }
+
+  showhidepassword = () => {
+    console.log('show/hide password')
   }
 
   onChange(event){
@@ -56,6 +58,7 @@ class App extends Component {
 
  generateNumber = event =>{
    event.preventDefault();
+
    console.log(Math.random().toString(36).slice(-10));
  }
  
@@ -76,7 +79,7 @@ class App extends Component {
         <button type="button" onClick={this.showModal}>
           open
         </button>
-        <Modal show={this.state.show} handleClose={this.hideModal} handleRandom={this.generateNumber} handleAdd={this.vaultAdd}>
+        <Modal show={this.state.show} handleClose={this.hideModal} togglePassword={this.showhidepassword} handleRandom={this.generateNumber} handleAdd={this.vaultAdd}>
         </Modal>
         <Router>
           {/* <Landing/> */}
