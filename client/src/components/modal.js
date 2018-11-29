@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import '../components/modal.css';
+import axios from "axios";
 
 export default class Modal extends Component{
     constructor(props){
@@ -11,20 +12,36 @@ export default class Modal extends Component{
             usernameInput: '',
             passwordInput: ''
         }
+        // this.setState = this.setState.bind(this);
+
     }
 
-    onChange(event){
+    handleInputChange = (event) =>{
+        let name = event.target.name;
+        let value = event.target.value;
         this.setState({
-            [event.target.name]: event.target.value
+            [name]: value
             
         });
-        console.log(this.state.value)
+    
+    }
+
+    storeModalValues = (event) =>{
+        let secretData ={
+            name: this.state.nameInput,
+            password: this.state.passwordInput,
+            username: this.state.usernameInput,
+            URL: this.state.urlInput
+        } 
+        console.log(secretData)
+        axios.post('/secrets', secretData)
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
     }
 
 
 
-    // if {this.props.show} 
-// need help with this line to convert it
+
     
    render(){
     const showHideClassName = this.props.show ? "modal display-block" : "modal display-none";
@@ -35,16 +52,16 @@ export default class Modal extends Component{
           <hr/>
                   <div className="form-group">
                       <label className="col-form-label col-form-label-sm" for="nameInput">Name:</label>
-                      <input type="text" name="nameInput" className="form-control form-control-sm nameInput" value={this.state.onChange} placeholder="Name"></input>
+                      <input type="text" name="nameInput" onChange={this.handleInputChange} className="form-control form-control-sm nameInput" value={this.state.nameInput} placeholder="Name"></input>
                   </div>
                   <div className="form-group">
                       <label className="col-form-label col-form-label-sm" for="urlInput">URL:</label>
-                      <input type="text" name="urlInput" className="form-control form-control-sm urlInput" value={this.state.onChange} placeholder="URL"></input>
+                      <input type="text" name="urlInput" onChange={this.handleInputChange} className="form-control form-control-sm urlInput" value={this.state.urlInput} placeholder="URL"></input>
                   </div>
   
                   <div className="form-group">
                       <label className="col-form-label col-form-label-sm" for="usernameInput">Username:</label>
-                      <input type="text" name="usernameInput" className="form-control form-control-sm usernameInput" placeholder="Username"></input>
+                      <input type="text" name="usernameInput" onChange={this.handleInputChange} className="form-control form-control-sm usernameInput" value={this.state.usernameInput} placeholder="Username"></input>
                   </div>
   
                   <div className="form-group pwdToggle">
@@ -52,7 +69,7 @@ export default class Modal extends Component{
                       <div className="input-group">
                           <div className="input-group-prepend">
                               <span className="input-group-text"><i className="far fa-eye showPwd" onClick={this.props.togglePassword}></i></span>
-                              <input className="form-control form-control-sm pwd" name="passwordInput" id="entryPassword" placeholder="Password" type="password"></input>
+                              <input className="form-control form-control-sm pwd" onChange={this.handleInputChange} name="passwordInput" id="entryPassword" value={this.state.passwordInput} placeholder="Password" type="password"></input>
                           </div>
                       </div>
                   </div>
@@ -62,7 +79,8 @@ export default class Modal extends Component{
               <hr/>
   
             <button className= "btn btn-primary addbtn modalbtn"
-             onClick={this.props.handleAdd}
+            //  onClick={this.props.handleAdd}
+             onClick={this.storeModalValues}
              >Save Changes</button>
             <button className= "btn btn-primary closebtn modalbtn" onClick={this.props.handleClose}>Close</button>
           </section>

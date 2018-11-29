@@ -29,9 +29,11 @@ export default class LoginBlock extends Component {
             username: this.state.username,
             password: this.state.password
         };
-        axios.post('/login', userData).then(res => {
+        axios.post('/login', userData)
+        .then(res => {
             this.props.onLogin(res.data);
-        }).catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
          
     }
     render(){
