@@ -9,7 +9,7 @@ const Landing = props => (
     <Modal/>
     {/* <PasswordModal/> */}
     {props.secrets.map(element =>(
-        <SecretCard name={element.name} password={element.password} URL={element.URL} username={element.username}/>
+        <SecretCard key={element._id} name={element.name} password={element.password} URL={element.URL} username={element.username} />
     )
     )}
     <button className="btn btn-primary addVault" type="button" onClick={() => props.showModal()}>Add To Vault</button>

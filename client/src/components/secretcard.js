@@ -1,49 +1,100 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './secretcard.css'
-// import { Panel } from 'reactstrap';
+import { UncontrolledCollapse, Card, CardBody } from 'reactstrap';
 
-const SecretCard = (props) => (
-    <div className="card">
+export default class SecretCard extends Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            nameInput: '',
+            urlInput: '',
+            usernameInput: '',
+            passwordInput: '',
+            collapse: false
+        }
+        
+    }
+    toggle = (event) => {
+        event.preventDefault()
+        console.log('toggling')
+        this.setState({ collapse: !this.state.collapse });
+    }
+
+    handleInputChange = (event) =>{
+        let name = event.target.name;
+        let value = event.target.value;
+        this.setState({
+            [name]: value
+            
+        });
+        console.log(this.state)
+    }
+
+    updateEntry = (event) =>{
+        event.preventDefault();
+        console.log('event button clicked')
+    }
+    showhidepassword = (event) => {
+        event.preventDefault();
+        console.log('show/hide password')
+        let pwd = document.getElementById('entryPassword').type
+        if (pwd === ('password')){
+          document.querySelector('.pwd').type = 'text'
+        } else{
+          document.querySelector('.pwd').type = 'password'
+        }
+      }
+
+        render(){
+            return(
+                
+                <div >
+                
+                <Card className="card">
         {/* <Panel> */}
-        <div className="card-header"><a><h4 className="panel-title">{props.name}</h4></a></div>
-        <div className="card-body">
+        <div className="card-header"><h4  onClick={this.toggle} id={this.props._id} className="panel-title">{this.props.name}</h4></div>
+        <UncontrolledCollapse toggler={this.props._id}>
+        <CardBody className="card-body">
+        <div >
 
-            <div class="form-group">
-                <label class="col-form-label col-form-label-sm" for="inputSmall">URL:</label>
-                <input class="form-control  form-control-sm"  type="text" value={props.URL}></input>
+            <div className="form-group">
+                <label className="col-form-label col-form-label-sm" for="inputSmall">URL:</label>
+                <input name={this.state.urlInput}class="form-control form-control-sm" onChange={this.handleInputChange} type="text" value={this.props.URL}></input>
             </div>
 
             <div className="form-group">
                 <label className="col-form-label col-form-label-sm" for="inputSmall">Username</label>
-                <input className="form-control form-control-sm inputSmall "type="text" value={props.username}></input>
+                <input name={this.state.usernameInput} className="form-control form-control-sm inputSmall "type="text" onChange={this.handleInputChange} value={this.props.username}></input>
             </div>
             <div className="form-group pwdToggle">
                 <label className="col-form-label col-form-label-sm" for="inputSmall">Password</label><br/>
                 <div className="input-group">
                     <div className="input-group-prepend">
-                        <span className="input-group-text"><i class="far fa-eye showPwd"><br/></i></span>
-                        <input className="form-control form-control-sm pwd" type="password" value={props.password}></input>
+                        <span className="input-group-text"><i class="far fa-eye showPwd" onClick={this.showhidepassword}><br/></i></span>
+                        <input name={this.state.passwordInput} className="form-control form-control-sm pwd"  type="password" onChange={this.handleInputChange} value={this.props.password}></input>
         
                     </div>
+                    </div>
                 </div>
+                </div>       
         
-            </div>
+                <div className="row">
+                    <div className="col-1">
+                        <button className="btn btn-primary updatePwd" onClick={(event) => this.updateEntry}>Update</button>
+                    </div>
+                    <div className="col-1">
+                        <button className="btn btn-primary deletePwd" >Delete</button>
+                    </div>
+                </div>
             
+            </CardBody>
+            </UncontrolledCollapse>
         
-        
-            <div className="row">
-                <div className="col-1">
-                    <button className="btn btn-primary updatePwd ">Update</button>
-                </div>
-                <div className="col-1">
-                    <button className="btn btn-primary deletePwd" >Delete</button>
-                </div>
-        
-            </div>
-        
-        </div>
+                </Card>
         {/* </Panel> */}
     </div>
-);
+    
+            )
+        }
 
-export default SecretCard;
+    }
