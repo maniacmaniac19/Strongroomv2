@@ -26,7 +26,20 @@ export default class Modal extends Component{
     
     }
 
-    storeModalValues = (event) =>{
+    generateNumber = event =>{
+        event.preventDefault();
+        console.log("generate clicked=========================================")
+        this.setState({
+          passwordInput:(Math.random().toString(36).slice(-10))
+        })
+       //  document.querySelector('#entryPassword').value = (Math.random().toString(36).slice(-10));
+         
+      }
+
+    storeModalValues = () =>{
+
+
+        
         let secretData ={
             name: this.state.nameInput,
             password: this.state.passwordInput,
@@ -35,7 +48,15 @@ export default class Modal extends Component{
         } 
         console.log(secretData)
         axios.post('/secrets', secretData)
-        .then(res => console.log(res))
+    .then(res => {console.log(res);
+        this.setState({
+            nameInput: '',
+            urlInput: '',
+            usernameInput: '',
+            passwordInput: ''
+        }) 
+        this.props.handleClose();
+        this.props.showVault()})
         .catch(err => console.log(err));
     }
 
@@ -74,7 +95,7 @@ export default class Modal extends Component{
                       </div>
                   </div>
                   <div className='form-group'>             
-              <input type="button" value="Generate" className="btn btn-primary btn-sm" onClick={this.props.handleRandom} id="generate"></input>
+              <input type="button" value="Generate" className="btn btn-primary btn-sm" onClick={this.generateNumber} id="generate"></input>
               </div> 
               <hr/>
   

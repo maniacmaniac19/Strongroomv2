@@ -48,9 +48,7 @@ router.get('/secrets', (req, res) =>{
 
 router.post('/secrets', (req,res) => {
     console.log(req.body)
-    db.Secrets.create(req.body)
-        .populate('Users')
-        
+    db.Secrets.create(req.body)        
       .then(function (data) {
         res.json(data);
       })
