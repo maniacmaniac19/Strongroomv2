@@ -57,6 +57,28 @@ router.post('/secrets', (req,res) => {
       });
 })
 
+router.put('/secrets/:name', (req,res) => {
+    console.log(req.body)
+    db.Secrets.findOneAndUpdate({name: req.body.name}, req.body)        
+      .then(function (data) {
+        res.json(data);
+      })
+      .catch(function (err) {
+        res.json(err);
+      });
+})
+
+router.delete('/secrets/:name', (req,res) => {
+    console.log(req.body)
+    db.Secrets.findOneAndDelete({name: req.params.name})        
+      .then(function (data) {
+        res.json(data);
+      })
+      .catch(function (err) {
+        res.json(err);
+      });
+})
+
 // router.delete('/users/_id', (req, res)=> {
 //     db.Users.rev
 // })

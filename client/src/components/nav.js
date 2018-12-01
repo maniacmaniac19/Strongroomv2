@@ -1,6 +1,5 @@
 import React from 'react';
 import '../components/nav.css';
-import  {navbar} from'../simplex.css'
 
 const Nav = props =>(
     <nav className='navbar bg-primary'>

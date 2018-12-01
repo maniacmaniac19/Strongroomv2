@@ -3,8 +3,9 @@ import './App.css';
 import axios from 'axios';
 import Login from './pages/login';
 import Landing from './pages/landing';
-import { Router, Link, Redirect } from "@reach/router";
+import { Router } from "@reach/router";
 import Modal from './components/modal';
+import Vault from './pages/vault';
 
 
 
@@ -87,13 +88,10 @@ class App extends Component {
     }
     return (
       <div className="App">
-        {/* <Login /> */}
-        <button type="button" onClick={this.showModal}>
-          open
-        </button>
         <Modal show={this.state.show} handleClose={this.hideModal} togglePassword={this.showhidepassword} handleAdd={this.vaultAdd} showVault={this.showVault}>
         </Modal>
         <Router>
+          <Vault path='/secrets' showModal={this.showModal} showVault={this.showVault} secrets={this.state.secrets}/>
           {/* <Landing/> */}
           {/* <Redirect from ='/' to ='/login'/> */}
           {route}

@@ -3,7 +3,7 @@ import Nav from '../components/nav';
 import Modal from '../components/modal'
 import SecretCard from '../components/secretcard'
 
-const Landing = props => (
+const Vault = props => (
     <div>
     <Nav/>
     <Modal/>
@@ -12,11 +12,9 @@ const Landing = props => (
         <SecretCard toggler={`secret${index}`} renderVault={props.showVault} key={element._id} name={element.name} password={element.password} URL={element.URL} username={element.username} />
     )
     )}
-    <button className="btn btn-primary addVault" type="button" onClick={() => props.showModal()}>Add To Vault</button>
-    <button className="btn btn-primary" onClick={props.showVault} > View Vault</button>
+
     </div>
+
 )
-    
 
-
-export default Landing;
+export default Vault;
