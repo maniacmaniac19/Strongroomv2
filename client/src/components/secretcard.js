@@ -36,7 +36,7 @@ export default class SecretCard extends Component{
         console.log('delete button clicked');
         axios.delete(`/secrets/${this.props.name}`)
         .then(response =>{
-            console.log(response)
+    this.renderVault()
         }).catch(err =>{
             console.log(err)
         });
@@ -47,46 +47,29 @@ export default class SecretCard extends Component{
         // TouchList
         let data = {
             name: this.props.name,
-            password: this.state.passwordInput,
-            username: this.state.usernameInput,
-            URL: this.state.urlInput 
+            password: this.state.passwordInput ? this.state.passwordInput : this.props.password,
+            username: this.state.usernameInput ? this.state.usernameInput : this.props.username,
+            URL: this.state.urlInput ? this.state.urlInput : this.props.URL
         }
 
         console.log(data)
         axios.put(`/secrets/${this.props.name}`, data)
-        .then(response => {
-            console.log(response)
-            this.renderVault();
+        .then(() => {
+            this.renderVault()
         }).catch(err =>{
             console.log(err)
         })
     }
     showhidepassword = (event) => {
         event.preventDefault();
-        console.log('show/hide password')
-        let pwd = document.querySelector('.pwd').type
-        console.log(pwd)
-        if (pwd === ('password')){
-            this.setState({
-                passwordInput: this.props.password
-            })
-          document.querySelector('.pwd').type = 'text';
-          this.setState({
-            passwordInput: this.state.passwordInput
-        });
-        } else{
-            this.setState({
-                passwordInput: this.props.password
-            })
-          document.querySelector('.pwd').type = 'password';
-          this.setState({
-            passwordInput: this.state.passwordInput
-        });
-        }
+        this.setState({
+            showhidepassword:!this.state.showhidepassword
+        })
       }
 
       renderVault = () =>{
           console.log('rendering');
+
         //   window.location.reload();
           this.props.renderVault();
           
@@ -98,7 +81,6 @@ export default class SecretCard extends Component{
                 <div >
                 
                 <Card className="card">
-        {/* <Panel> */}
         <div className="card-header"><h4  onClick={this.toggle} id={this.props.toggler} className="panel-title">{this.props.name}</h4></div>
         <UncontrolledCollapse toggler={this.props.toggler}>
         <CardBody className="card-body">
@@ -118,7 +100,7 @@ export default class SecretCard extends Component{
                 <div className="input-group">
                     <div className="input-group-prepend">
                         <span className="input-group-text"><i className="far fa-eye showPwd" onClick={this.showhidepassword}><br/></i></span>
-                        <input name="passwordInput" className="form-control form-control-sm pwd" value={this.state.value} type="password" onChange={this.handleInputChange} defaultValue={this.props.password}></input>
+                        <input name="passwordInput" className="form-control form-control-sm pwd" value={this.state.value} type={this.state.showhidepassword ? "text" : "password"} onChange={this.handleInputChange} defaultValue={this.props.password}></input>
         
                     </div>
                     </div>
@@ -138,7 +120,6 @@ export default class SecretCard extends Component{
             </UncontrolledCollapse>
         
                 </Card>
-        {/* </Panel> */}
     </div>
     
             )

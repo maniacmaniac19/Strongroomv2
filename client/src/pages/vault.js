@@ -7,7 +7,6 @@ const Vault = props => (
     <div>
     <Nav/>
     <Modal/>
-    {/* <PasswordModal/> */}
     {props.secrets.map((element, index) =>(
         <SecretCard toggler={`secret${index}`} renderVault={props.showVault} key={element._id} name={element.name} password={element.password} URL={element.URL} username={element.username} />
     )

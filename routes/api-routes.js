@@ -34,7 +34,8 @@ router.get('/users', (req, res) =>{
 });
 
 router.get('/secrets', (req, res) =>{
-    db.Secrets.find({})
+    console.log(req.body)
+    db.Secrets.find({owner: req.body.owner})
     .then(data => {
         console.log(data)
         res.status(200).json(data)

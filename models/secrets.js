@@ -21,8 +21,7 @@ const SecretSchema = new Schema({
     type: String,
   },
   owner: {
-    type: Schema.Types.ObjectId,
-    ref: "users"
+    type: String,
 }
 
 });

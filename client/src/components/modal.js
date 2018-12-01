@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import '../components/modal.css';
 import axios from "axios";
+import { navigate } from "@reach/router/lib/history";
 
 export default class Modal extends Component{
     constructor(props){
@@ -28,7 +29,6 @@ export default class Modal extends Component{
 
     generateNumber = event =>{
         event.preventDefault();
-        console.log("generate clicked=========================================")
         this.setState({
           passwordInput:(Math.random().toString(36).slice(-10))
         })
@@ -37,14 +37,13 @@ export default class Modal extends Component{
       }
 
     storeModalValues = () =>{
-
-
-        
+        console.log(this.props.username)
         let secretData ={
             name: this.state.nameInput,
             password: this.state.passwordInput,
             username: this.state.usernameInput,
-            URL: this.state.urlInput
+            URL: this.state.urlInput,
+            owner: this.props.username
         } 
         console.log(secretData)
         axios.post('/secrets', secretData)
@@ -56,7 +55,9 @@ export default class Modal extends Component{
             passwordInput: ''
         }) 
         this.props.handleClose();
-        this.props.showVault()})
+        // navigate('/secrets')
+        this.props.showVault()
+    })
         .catch(err => console.log(err));
     }
 

@@ -17,7 +17,8 @@ class App extends Component {
       isLoggedIn: false,
       user: {},
       show: false,
-      secrets: []
+      secrets: [],
+      username: ''
     };
     this.onLogin = this.onLogin.bind(this);
     this.showModal = this.showModal.bind(this);
@@ -62,9 +63,9 @@ class App extends Component {
      isLoggedIn: true,
      username: user.username
    });
+   console.log(this.state)
  }
 
- 
 
  showVault = () =>{
   axios.get('/secrets')
@@ -88,7 +89,7 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <Modal show={this.state.show} handleClose={this.hideModal} togglePassword={this.showhidepassword} handleAdd={this.vaultAdd} showVault={this.showVault}>
+        <Modal show={this.state.show} handleClose={this.hideModal} username={this.state.username} togglePassword={this.showhidepassword} handleAdd={this.vaultAdd} showVault={this.showVault}>
         </Modal>
         <Router>
           <Vault path='/secrets' showModal={this.showModal} showVault={this.showVault} secrets={this.state.secrets}/>
