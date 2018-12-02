@@ -9,6 +9,7 @@ import Vault from './pages/vault';
 import { Animation } from "mdbreact";
 import PasswordChange from './pages/passwordchange'
 import Administration from './pages/administration'
+import Admin from './pages/admin'
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +22,8 @@ class App extends Component {
       user: {},
       show: false,
       secrets: [],
-      username: ''
+      username: '',
+      allUsers: []
     };
     this.onLogin = this.onLogin.bind(this);
     this.showModal = this.showModal.bind(this);
@@ -71,6 +73,19 @@ class App extends Component {
    console.log(this.state)
  }
 
+ getUsers = () =>{
+  console.log("Get Users is running from app.js"); 
+  axios.get('/users')
+  .then(response => {
+    console.log("Get Users response")
+    console.log(response.data)
+   this.setState({
+     allUsers: response.data
+   });
+   console.log(this.state.allUsers)
+  })
+}
+
 
  showVault = (user) =>{
   console.log('USER IN APP.JS ', user)
@@ -79,12 +94,7 @@ class App extends Component {
   this.setState({
     secrets: response.data
   });
-  //  axios.get('/secrets')
-  //  .then(response => {
-  //   this.setState({
-  //     secrets: response.data
-  //   });
-  //  })
+  //  
  })
 }
 
@@ -108,12 +118,6 @@ hideContent = () =>{
       route = <Login path = '/' onLogin={this.onLogin} />
     }
 
-    // if (this.state.isLoggedIn) {
-    //   route = <Landing path='/' showModal={this.showModal} hideContent={this.hideContent} showVault={this.showVault} secrets={this.state.secrets} owner={this.state.username}/>;
-
-    // } else {
-    //   route = <Login path = '/' onLogin={this.onLogin} />
-    // }
     return (
       <div className="App">
       <Animation type="bounceInDown">
@@ -123,8 +127,11 @@ hideContent = () =>{
         </Animation> 
         <Router>
           <Vault path='/secrets' showModal={this.showModal} showVault={this.showVault} secrets={this.state.secrets}/>
-          <Administration path='/administration' />
-          {/* <Landing/> */}
+          <Admin path='/administration' showModal={this.showModal} getUsers={this.getUsers} allUsers={this.state.allUsers}
+          secrets={this.state.secrets} showVault={this.showVault} hideContent={this.hideContent}
+          />
+          <PasswordChange path='/password' owner={this.state.username}/>
+          <Landing path='/home'secrets={this.state.secrets} showVault={this.showVault} showModal={this.showModal} hideContent={this.hideContent}  />
           {/* <Redirect from ='/' to ='/login'/> */}
           {route}
         </Router>

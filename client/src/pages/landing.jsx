@@ -20,7 +20,7 @@ const Landing = props => (
                     <button className="btn btn-primary btn-lg btn-block addVault" onClick={() => props.showModal()}>Add to Vault</button>
             </div>
             <div className="col-4 block">
-                   <button class="btn btn-primary btn-lg btn-block" id="showVault" onClick={(event)=>{event.preventDefault(); props.showVault(props.owner);props.hideContent()}}>View Vault</button>
+                   <button className="btn btn-primary btn-lg btn-block" id="showVault" onClick={(event)=>{event.preventDefault(); props.showVault(props.owner);props.hideContent()}}>View Vault</button>
             </div>
     </div>
 

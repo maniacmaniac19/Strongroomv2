@@ -1,17 +1,4 @@
-// import React from 'react';
-// import '../components/nav.css';
 
-// const Nav2 = props =>(
-//     <nav className='navbar bg-primary'>
-//     <h1 className = "slogan "><i className="fas fa-chess-rook"></i>Strongroom</h1>
-//     <i className="far fa-plus-square" onClick={() => props.showModal()} id="triggerModal" ></i>
-    
-
-//     </nav>
-
-// )
-
-// export default Nav2;
 
 import React from 'react';
 import {
@@ -25,7 +12,7 @@ import {
   DropdownMenu,
   DropdownItem } from 'reactstrap';
 import {navigate} from '@reach/router'
-import Administration from '../pages/administration'
+// import Administration from '../pages/administration'
 
 export default class Navigation extends React.Component {
     state = {
@@ -37,18 +24,24 @@ export default class Navigation extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
+  changePassword = () => {
+      console.log('change password')
+      navigate('/password')
+  }
   handleAdmin = () =>{
       console.log('admin page');
-      navigate('/adminstration')
+      navigate('/administration')
   }
   logout = () => {
       console.log("logging out")
+      navigate('/')
   }
   render() {
     return (
       <div>
         <Navbar className="navbar bg-primary" dark expand="md">
-          <NavbarBrand  href="/"><h1 className = "slogan "><i className="fas fa-chess-rook"></i>Strongroom</h1></NavbarBrand>
+          <NavbarBrand  href="/home"><h1 className = "slogan "><i className="fas fa-chess-rook"></i>Strongroom</h1></NavbarBrand>
+          <i className="far fa-plus-square" onClick={() => this.props.showModal()} id="triggerModal" ></i>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -57,7 +50,7 @@ export default class Navigation extends React.Component {
                   Settings
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>
+                  <DropdownItem onClick={() => this.changePassword()}>
                     Change Password
                   </DropdownItem>
                   <DropdownItem onClick={() => this.handleAdmin()}>
