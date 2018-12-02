@@ -37,31 +37,37 @@ export default class PasswordChangeModal extends Component {
 
 changePassword = () =>{
     
-    console.log('changing password');
+    console.log('is username here');
+    console.log(this.state)
     this.setState({
         newPassword: this.state.value,
         confirmPassword: this.state.value,
-        username: this.props.owner
+        username: this.props.username
         
     })
+    console.log('username should be present')
     console.log(this.state);
     console.log(this.state.confirmPassword);
     if (this.state.newPassword === this.state.confirmPassword){
         
         let data = {
-            password: this.newPassword,
-            username: this.username,
-            firstLogin: this.firstLogin
+            password: this.state.newPassword,
+            username: this.state.username,
+            firstLogin: this.state.firstLogin
         }
+        console.log("this is data")
+        console.log(data)
         axios.put(`/password/${this.username}`, data)
         .then((res) => {
-            this.setState({
-                firstLogin: false
-            })
+            // this.setState({
+            //     firstLogin: false
+            // })
+            console.log(res)
+            console.log("this is the state")
             console.log(this.state)
             this.toggle();
             // alert(res.status)
-            navigate(`/`)
+            navigate(`/home`)
         }).catch(err =>{
             console.log(err)
         })

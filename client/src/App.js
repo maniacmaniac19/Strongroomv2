@@ -109,7 +109,7 @@ hideContent = () =>{
     let route;
 
     if (this.state.isLoggedIn && this.state.firstLogin) {
-      route = <PasswordChange path='/' owner={this.state.username}/>
+      route = <PasswordChange path='/' username={this.state.username}/>
 
     } else if(this.state.isLoggedIn && !this.state.firstLogin) {
       route = <Landing path='/' showModal={this.showModal} hideContent={this.hideContent} showVault={this.showVault} secrets={this.state.secrets} owner={this.state.username}/>;
@@ -130,7 +130,7 @@ hideContent = () =>{
           <Admin path='/administration' showModal={this.showModal} getUsers={this.getUsers} allUsers={this.state.allUsers}
           secrets={this.state.secrets} showVault={this.showVault} hideContent={this.hideContent}
           />
-          <PasswordChange path='/password' owner={this.state.username}/>
+          <PasswordChange path='/password' username={this.state.username}/>
           <Landing path='/home'secrets={this.state.secrets} showVault={this.showVault} showModal={this.showModal} hideContent={this.hideContent}  />
           {/* <Redirect from ='/' to ='/login'/> */}
           {route}

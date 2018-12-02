@@ -9,7 +9,7 @@ export default class PasswordChange extends Component{
         return(
             <div>
                 <Navigation/>
-                <PasswordChangeModal/>
+                <PasswordChangeModal username={this.props.username}/>
             </div>
         )}
 }

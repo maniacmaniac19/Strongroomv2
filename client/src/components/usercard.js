@@ -11,16 +11,18 @@ export default class UserCard extends Component{
         }
     }
     componentDidMount(){
+        console.log('usercard mounted')
         this.setState({
-            userInput:this.props.username,
+            usernameforCard:this.props.username,
             
         })
     this.props.renderUsers()}
     render(){
         return(
             <div>
+                <p>blahblahblah</p>
                 <Card className="card">
-            {this.userInput}
+            {this.usernameforCard}
             </Card>
             </div>
         )
