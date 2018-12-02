@@ -4,21 +4,6 @@ const path = require('path');
 const db = require('../models')
 // const en = require('../../crypto');
 
-// router.post('/users', (req, res) => {
-//     db.Users.create(req.body)
-//     .then(data =>{
-//         console.log(data)
-//         res.status(200).json({
-//             data: data
-//         })
-//     })
-//     .catch(err =>{
-//         res.status(500).json({
-//             error: err
-//         })
-//     });
-// });
-
 router.get('/users', (req, res) =>{
     db.Users.find({})
     .then(data => {
@@ -33,8 +18,8 @@ router.get('/users', (req, res) =>{
     
 });
 
-router.get('/secrets', (req, res) =>{
-    console.log(req.body)
+router.post('/owner/secrets', (req, res) =>{
+    console.log("Hello Secrets", req.body)
     db.Secrets.find({owner: req.body.owner})
     .then(data => {
         console.log(data)
@@ -46,6 +31,30 @@ router.get('/secrets', (req, res) =>{
     })
     
 });
+
+router.put('/password/:username', (req,res) => {
+  console.log(req.body )
+  db.Users.findOneAndUpdate({username: req.body.username}, req.body)        
+    .then(function (data) {
+      res.json(data);
+      console.log("here is the res")
+      console.log(res)
+    })
+    .catch(function (err) {
+      res.json(err);
+    });
+})
+
+router.get('/secrets', (req,res) => {
+    console.log(req)
+    db.Secrets.find({})      
+      .then(function (data) {
+        res.json(data);
+      })
+      .catch(function (err) {
+        res.json(err);
+      });
+})
 
 router.post('/secrets', (req,res) => {
     console.log(req.body)
@@ -79,6 +88,18 @@ router.delete('/secrets/:name', (req,res) => {
         res.json(err);
       });
 })
+
+// router.put('/password/:username', (req,res) => {
+//   console.log(req.body)
+//   db.Users.findOneAndUpdate({username: req.body.username}, req.body)        
+//     .then(function (data) {
+//       res.json(data);
+  
+//     })
+//     .catch(function (err) {
+//       res.json(err);
+//     });
+// })
 
 // router.delete('/users/_id', (req, res)=> {
 //     db.Users.rev

@@ -6,8 +6,9 @@ import Landing from './pages/landing';
 import { Router } from "@reach/router";
 import Modal from './components/modal';
 import Vault from './pages/vault';
-
-
+import { Animation } from "mdbreact";
+import PasswordChange from './pages/passwordchange'
+import Administration from './pages/administration'
 
 class App extends Component {
   constructor(props) {
@@ -15,6 +16,8 @@ class App extends Component {
     this.state = {
       loginName: '',
       isLoggedIn: false,
+      firstLogin: true,
+      isAdmin: false,
       user: {},
       show: false,
       secrets: [],
@@ -61,38 +64,66 @@ class App extends Component {
  onLogin(user) {
    this.setState({
      isLoggedIn: true,
-     username: user.username
+     username: user.username,
+     firstLogin: user.firstLogin,
+    isAdmin: user.isAdmin
    });
    console.log(this.state)
  }
 
 
- showVault = () =>{
-  axios.get('/secrets')
-  .then(response =>{
-    this.setState({
-      secrets: response.data
-    })
-  })
- }
+ showVault = (user) =>{
+  console.log('USER IN APP.JS ', user)
+ axios.post('/owner/secrets', {owner:user})
+ .then(response =>{
+  this.setState({
+    secrets: response.data
+  });
+  //  axios.get('/secrets')
+  //  .then(response => {
+  //   this.setState({
+  //     secrets: response.data
+  //   });
+  //  })
+ })
+}
+
+hideContent = () =>{
+  console.log('hiding content');
+  document.getElementById('main-body').style.display = 'none'
+}
  
 
   render() {
 
     let route;
 
-    if (this.state.isLoggedIn) {
-      route = <Landing path='/' showModal={this.showModal} showVault={this.showVault} secrets={this.state.secrets}/>;
+    if (this.state.isLoggedIn && this.state.firstLogin) {
+      route = <PasswordChange path='/' owner={this.state.username}/>
 
-    } else {
+    } else if(this.state.isLoggedIn && !this.state.firstLogin) {
+      route = <Landing path='/' showModal={this.showModal} hideContent={this.hideContent} showVault={this.showVault} secrets={this.state.secrets} owner={this.state.username}/>;
+    }
+    else if(!this.state.isLoggedIn && this.state.firstLogin){
       route = <Login path = '/' onLogin={this.onLogin} />
     }
+
+    // if (this.state.isLoggedIn) {
+    //   route = <Landing path='/' showModal={this.showModal} hideContent={this.hideContent} showVault={this.showVault} secrets={this.state.secrets} owner={this.state.username}/>;
+
+    // } else {
+    //   route = <Login path = '/' onLogin={this.onLogin} />
+    // }
     return (
       <div className="App">
-        <Modal show={this.state.show} handleClose={this.hideModal} username={this.state.username} togglePassword={this.showhidepassword} handleAdd={this.vaultAdd} showVault={this.showVault}>
+      <Animation type="bounceInDown">
+        <Modal show={this.state.show} handleClose={this.hideModal} hideContent={this.hideContent} username={this.state.username} togglePassword={this.showhidepassword} handleAdd={this.vaultAdd} showVault={this.showVault} owner={this.state.username}>
+        
         </Modal>
+        </Animation> 
         <Router>
           <Vault path='/secrets' showModal={this.showModal} showVault={this.showVault} secrets={this.state.secrets}/>
+          <Administration path='/administration' />
           {/* <Landing/> */}
           {/* <Redirect from ='/' to ='/login'/> */}
           {route}

@@ -1,21 +1,15 @@
 import React, {Component} from "react";
-import ReactDOM from "react-dom";
 import '../components/modal.css';
 import axios from "axios";
-import { navigate } from "@reach/router/lib/history";
+
 
 export default class Modal extends Component{
-    constructor(props){
-        super(props)
-        this.state = {
+        state = {
             nameInput: '',
             urlInput: '',
             usernameInput: '',
             passwordInput: ''
         }
-        // this.setState = this.setState.bind(this);
-
-    }
 
     handleInputChange = (event) =>{
         let name = event.target.name;
@@ -55,8 +49,9 @@ export default class Modal extends Component{
             passwordInput: ''
         }) 
         this.props.handleClose();
+        this.props.hideContent();
         // navigate('/secrets')
-        this.props.showVault()
+        this.props.showVault(this.props.owner)
     })
         .catch(err => console.log(err));
     }
@@ -68,26 +63,29 @@ export default class Modal extends Component{
    render(){
     const showHideClassName = this.props.show ? "modal display-block" : "modal display-none";
     return (
+        
+        
+        
         <div className={showHideClassName}>
           <section className="modal-main modal-body">
           <h5>Add new entry</h5>
           <hr/>
                   <div className="form-group">
-                      <label className="col-form-label col-form-label-sm" for="nameInput">Name:</label>
+                      <label className="col-form-label col-form-label-sm" >Name:</label>
                       <input type="text" name="nameInput" onChange={this.handleInputChange} className="form-control form-control-sm nameInput" value={this.state.nameInput} placeholder="Name"></input>
                   </div>
                   <div className="form-group">
-                      <label className="col-form-label col-form-label-sm" for="urlInput">URL:</label>
+                      <label className="col-form-label col-form-label-sm" >URL:</label>
                       <input type="text" name="urlInput" onChange={this.handleInputChange} className="form-control form-control-sm urlInput" value={this.state.urlInput} placeholder="URL"></input>
                   </div>
   
                   <div className="form-group">
-                      <label className="col-form-label col-form-label-sm" for="usernameInput">Username:</label>
+                      <label className="col-form-label col-form-label-sm">Username:</label>
                       <input type="text" name="usernameInput" onChange={this.handleInputChange} className="form-control form-control-sm usernameInput" value={this.state.usernameInput} placeholder="Username"></input>
                   </div>
   
                   <div className="form-group pwdToggle">
-                      <label className="col-form-label col-form-label-sm" for="inputSmall">Password</label>
+                      <label className="col-form-label col-form-label-sm">Password</label>
                       <div className="input-group">
                           <div className="input-group-prepend">
                               <span className="input-group-text"><i className="far fa-eye showPwd" onClick={this.props.togglePassword}></i></span>
@@ -107,5 +105,7 @@ export default class Modal extends Component{
             <button className= "btn btn-primary closebtn modalbtn" onClick={this.props.handleClose}>Close</button>
           </section>
         </div>
+     
+       
       );
 }}

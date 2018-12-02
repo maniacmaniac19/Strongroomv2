@@ -31,6 +31,7 @@ export default class LoginBlock extends Component {
         };
         axios.post('/login', userData)
         .then(res => {
+            console.log(res)
             this.props.onLogin(res.data);
         })
         .catch(err => console.log(err));
@@ -38,14 +39,14 @@ export default class LoginBlock extends Component {
     }
     render(){
         return(
-            <div>
+            <div className="container">
 
                 <form>
                     <label>Username:</label><br/>
-                    <input type="text" name="username" value={this.state.username} onChange={this.onChange} /><br/><br/>
+                    <input type="text" name="username" className="form-control " value={this.state.username} onChange={this.onChange} /><br/><br/>
                     <label>Password:  </label><br/>
-                    <input type="password" name="password" value={this.state.password} onChange={this.onChange} /><br/><br/>
-                    <button className =" btn btn-primary" onClick={(event)=>this.handleLogin(event)}>Login</button>
+                    <input type="password" name="password" className="form-control form-control-sm" value={this.state.password} onChange={this.onChange} /><br/><br/>
+                    <button className =" btn btn-primary"  onClick={(event)=>this.handleLogin(event)}>Login</button>
                 </form>
             </div>
         )

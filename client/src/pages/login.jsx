@@ -1,12 +1,14 @@
 import React from 'react';
-import Nav from '../components/nav';
+import Navigation from '../components/nav';
 import LoginBlock from '../components/loginblock'
 
 
 const Login = props => (
     <div>
-    <Nav/>
+    <Navigation/>
+    <div className='block'>
     <LoginBlock onLogin={props.onLogin} />
+    </div>
   </div>
 )
 

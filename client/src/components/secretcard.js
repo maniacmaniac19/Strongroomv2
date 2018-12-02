@@ -4,21 +4,23 @@ import { UncontrolledCollapse, Card, CardBody } from 'reactstrap';
 import axios from 'axios';
 
 export default class SecretCard extends Component{
-    constructor(props){
-        super(props)
-        this.state = {
+        state = {
             nameInput: '',
             urlInput: '',
             usernameInput: '',
             passwordInput: '',
             collapse: false
         }
-        
+    componentDidMount(){
+        this.setState({
+            usernameInput:this.props.username,
+            nameInput:this.props.name,
+            urlInput:this.props.URL,
+            passwordInput:this.props.password
+        })
     }
     toggle = (event) => {
-        event.preventDefault()
         console.log('toggling')
-        console.log(this.toggle);
         this.setState({ collapse: !this.state.collapse });
     }
 
@@ -42,19 +44,20 @@ export default class SecretCard extends Component{
         });
     }
 
-    updateEntry = () =>{
+    updateEntry = (event) =>{
         console.log('event button clicked')
         // TouchList
         let data = {
             name: this.props.name,
-            password: this.state.passwordInput ? this.state.passwordInput : this.props.password,
-            username: this.state.usernameInput ? this.state.usernameInput : this.props.username,
-            URL: this.state.urlInput ? this.state.urlInput : this.props.URL
+            password: this.state.passwordInput,
+            username: this.state.usernameInput,
+            URL: this.state.urlInput
         }
-
         console.log(data)
         axios.put(`/secrets/${this.props.name}`, data)
-        .then(() => {
+        .then((res) => {
+            console.log(res);
+            // alert(res.status)
             this.renderVault()
         }).catch(err =>{
             console.log(err)
@@ -71,7 +74,7 @@ export default class SecretCard extends Component{
           console.log('rendering');
 
         //   window.location.reload();
-          this.props.renderVault();
+          this.props.renderVault(this.props.owner);
           
       }
 
@@ -109,7 +112,7 @@ export default class SecretCard extends Component{
         
                 <div className="row">
                     <div className="col-1">
-                        <button className="btn btn-primary updatePwd" onClick={(event) => this.updateEntry()}>Update</button>
+                        <button  id={this.props.toggler} className="btn btn-primary updatePwd" onClick={(event) => this.updateEntry()}>Update</button>
                     </div>
                     <div className="col-1">
                         <button className="btn btn-primary deletePwd" onClick={(event) => this.deleteEntry()}>Delete</button>
