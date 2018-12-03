@@ -44,9 +44,9 @@ UsersSchema.pre('save', function (next) {
     });
   });
 
-// UsersSchema.methods.hashPassword = (password) =>{
-//     return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
-// }
+UsersSchema.methods.hashPassword = (password) =>{
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+}
 
 UsersSchema.methods.comparePassword = (password, hash) => {
     return bcrypt.compareSync (password, hash)

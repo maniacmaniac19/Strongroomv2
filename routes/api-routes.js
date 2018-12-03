@@ -32,18 +32,24 @@ router.post('/owner/secrets', (req, res) =>{
     
 });
 
-router.put('/password/:username', (req,res) => {
-  console.log(req.body )
-  db.Users.findOneAndUpdate({username: req.body.username}, req.body)        
-    .then(function (data) {
-      res.json(data);
-      console.log("here is the res")
-      console.log(res)
-    })
-    .catch(function (err) {
-      res.json(err);
-    });
-})
+// router.put('/password/:username', (req,res) => {
+//   console.log('this is the updated password req.body below')
+//   let data = {
+//     password: req.body.password,
+//     username: req.body.username,
+//     firstLogin: req.body.firstLogin
+//   }
+//   console.log(req.body )
+//   db.Users.findOneAndUpdate({username: req.body.username}, req.body)        
+//     .then(function (data) {
+//       res.json(data);
+//       console.log("here is the res")
+//       console.log(res)
+//     })
+//     .catch(function (err) {
+//       res.json(err);
+//     });
+// })
 
 router.get('/secrets', (req,res) => {
     console.log(req)
@@ -77,6 +83,8 @@ router.put('/secrets/:name', (req,res) => {
         res.json(err);
       });
 })
+
+
 
 router.delete('/secrets/:name', (req,res) => {
     console.log(req.body)

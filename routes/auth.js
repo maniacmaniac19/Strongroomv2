@@ -6,6 +6,35 @@ const bcrypt = require('bcrypt')
 
 module.exports = (passport) => {
 
+    router.put('/password/:username', (req,res) => {
+        console.log('this is the updated password req.body below')
+        let myPlaintextPassword = ''
+        myPlaintextPassword = req.body.password
+        bcrypt.genSalt((10), function(err, salt) {
+            bcrypt.hash(myPlaintextPassword, salt, function(err, hash) {
+                console.log(hash);
+                let data = {
+                    password: hash,
+                    username: req.body.username,
+                    firstLogin: req.body.firstLogin
+                  }
+                  console.log(data)
+                  db.Users.findOneAndUpdate({username: req.body.username}, data)        
+          .then(function (data) {
+            res.json(data);
+            
+          })
+          .catch(function (err) {
+            res.json(err);
+          });
+            });
+        });
+
+
+        
+        
+      })
+
     router.post('/users', (req, res) => {
         const data = req.body;
         username = data.username;

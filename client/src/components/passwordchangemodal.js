@@ -10,7 +10,7 @@ export default class PasswordChangeModal extends Component {
       modal: false,
       newPassword: '',
       confirmPassword: '',
-      username: '',
+      username: this.props.username,
       firstLogin: true
     };
 
@@ -36,7 +36,8 @@ export default class PasswordChangeModal extends Component {
 }
 
 changePassword = () =>{
-    
+    console.log('this is the username that is coming through in props')
+    console.log(this.props.username)
     console.log('is username here');
     console.log(this.state)
     this.setState({
@@ -53,16 +54,16 @@ changePassword = () =>{
         let data = {
             password: this.state.newPassword,
             username: this.state.username,
-            firstLogin: this.state.firstLogin
+            firstLogin: false
         }
         console.log("this is data")
         console.log(data)
         axios.put(`/password/${this.username}`, data)
         .then((res) => {
-            // this.setState({
-            //     firstLogin: false
-            // })
-            console.log(res)
+            this.setState({
+                firstLogin: false
+            })
+            
             console.log("this is the state")
             console.log(this.state)
             this.toggle();
@@ -84,12 +85,14 @@ changePassword = () =>{
   render() {
     return (
       <div>
-        <Button color="danger" onClick={this.toggle}>Click here to change your password.</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Please change your password.</ModalHeader>
           <ModalBody>
           <Alert id='passwordAlert' className='warning' style={{display: 'none'}} color="warning">
         Passwords must match!
+                </Alert>
+                <Alert id='passwordlengthAlert' className='warning' style={{display: 'none'}} color="warning">
+        Please enter a longer password.
                 </Alert>
               <form>
                   <label>New password:</label><br/>
@@ -101,7 +104,7 @@ changePassword = () =>{
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.changePassword}>Submit</Button>{' '}
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            {/* <Button color="secondary" onClick={this.toggle}>Cancel</Button> */}
           </ModalFooter>
         </Modal>
       </div>

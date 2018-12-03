@@ -31,6 +31,7 @@ export default class Modal extends Component{
       }
 
     storeModalValues = () =>{
+        console.log(this.props.owner)
         console.log(this.props.username)
         let secretData ={
             name: this.state.nameInput,
@@ -39,9 +40,10 @@ export default class Modal extends Component{
             URL: this.state.urlInput,
             owner: this.props.username
         } 
+        console.log("here is the secret data------------------------")
         console.log(secretData)
         axios.post('/secrets', secretData)
-    .then(res => {console.log(res);
+    .then(res => {
         this.setState({
             nameInput: '',
             urlInput: '',
