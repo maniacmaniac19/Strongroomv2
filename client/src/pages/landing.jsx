@@ -4,8 +4,9 @@ import Modal from '../components/modal'
 import SecretCard from '../components/secretcard'
 
 const Landing = props => (
+        
     <div>
-    <Navigation showModal={props.showModal}/>
+    <Navigation showModal={props.showModal} isAdmin={props.isAdmin}/>
     <Modal/>
     {/* <PasswordModal/> */}
     {props.secrets.map((element, index) =>(

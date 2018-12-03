@@ -1,5 +1,5 @@
 import React from 'react';
-import Navigation from '../components/nav';
+// import Navigation from '../components/nav';
 import LoginBlock from '../components/loginblock'
 import Nav2 from '../components/nav2'
 
@@ -7,7 +7,7 @@ import Nav2 from '../components/nav2'
 const Login = props => (
     <div>
       <Nav2 />
-    <Navigation/>
+    {/* <Navigation/> */}
     <div className='block'>
     <LoginBlock onLogin={props.onLogin} />
     </div>

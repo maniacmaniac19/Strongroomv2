@@ -6,7 +6,7 @@ import UserCard from '../components/usercard'
 
 const Admin = props => (
     <div>
-    <Navigation showModal={props.showModal}/>
+    <Navigation showModal={props.showModal} isAdmin={props.isAdmin}/>
     <Modal/>
     {/* <PasswordModal/> */}
     {/* {props.secrets.map((element, index) =>(

@@ -15,10 +15,18 @@ import {navigate} from '@reach/router'
 // import Administration from '../pages/administration'
 
 export default class Navigation extends React.Component {
-    state = {
-      isOpen: false
+  constructor(props){
+    super(props)
+    this.state = {
+      isOpen: false,
+      isAdmin: this.props.isAdmin
     };
+  }
   
+  // componentDidMount()(
+  //  if {this.props.isAdmin} ? console.log("true"): console.log('false')
+  // )
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
@@ -37,6 +45,22 @@ export default class Navigation extends React.Component {
       navigate('/')
   }
   render() {
+    let administrationItem;
+    console.log(this.isAdmin)
+    if(this.props.isAdmin){
+      administrationItem =
+      <DropdownItem onClick={() => this.handleAdmin()}>Administration</DropdownItem>
+    }else{
+      administrationItem =
+      <DropdownItem disabled onClick={() => this.handleAdmin()}>
+        Administration
+      </DropdownItem>
+    }
+
+
+
+      
+      
     return (
       <div>
         <Navbar className="navbar bg-primary" dark expand="md">
@@ -53,9 +77,7 @@ export default class Navigation extends React.Component {
                   <DropdownItem onClick={() => this.changePassword()}>
                     Change Password
                   </DropdownItem>
-                  <DropdownItem onClick={() => this.handleAdmin()}>
-                    Administration
-                  </DropdownItem>
+                {administrationItem}
                   <DropdownItem divider />
                   <DropdownItem onClick={() =>this.logout()}>
                     Logout

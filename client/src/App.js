@@ -109,13 +109,13 @@ hideContent = () =>{
     let route;
 
     if (this.state.isLoggedIn && this.state.firstLogin) {
-      route = <PasswordChange path='/' username={this.state.username}/>
+      route = <PasswordChange path='/' username={this.state.username} isAdmin={this.state.isAdmin}/>
 
     } else if(this.state.isLoggedIn && !this.state.firstLogin) {
-      route = <Landing path='/' showModal={this.showModal} hideContent={this.hideContent} showVault={this.showVault} secrets={this.state.secrets} owner={this.state.username}/>;
+      route = <Landing path='/' isAdmin={this.state.isAdmin} showModal={this.showModal} hideContent={this.hideContent} showVault={this.showVault} secrets={this.state.secrets} owner={this.state.username}/>;
     }
     else if(!this.state.isLoggedIn && this.state.firstLogin){
-      route = <Login path = '/' onLogin={this.onLogin} />
+      route = <Login path = '/' onLogin={this.onLogin } isAdmin={this.state.isAdmin}/>
     }
 
     return (
@@ -126,12 +126,12 @@ hideContent = () =>{
         </Modal>
         </Animation> 
         <Router>
-          <Vault path='/secrets' showModal={this.showModal} showVault={this.showVault} secrets={this.state.secrets}/>
-          <Admin path='/administration' showModal={this.showModal} getUsers={this.getUsers} allUsers={this.state.allUsers}
+          <Vault path='/secrets' showModal={this.showModal} showVault={this.showVault} isAdmin={this.state.isAdmin} secrets={this.state.secrets}/>
+          <Admin path='/administration' showModal={this.showModal} getUsers={this.getUsers} isAdmin={this.state.isAdmin} allUsers={this.state.allUsers}
           secrets={this.state.secrets} showVault={this.showVault} hideContent={this.hideContent}
           />
-          <PasswordChange path='/password' username={this.state.username}/>
-          <Landing path='/home'secrets={this.state.secrets} showVault={this.showVault} showModal={this.showModal} hideContent={this.hideContent}  />
+          <PasswordChange path='/password' isAdmin={this.state.isAdmin} username={this.state.username}/>
+          <Landing path='/home'secrets={this.state.secrets} showVault={this.showVault} isAdmin={this.state.isAdmin} showModal={this.showModal} hideContent={this.hideContent}  />
           {/* <Redirect from ='/' to ='/login'/> */}
           {route}
         </Router>
