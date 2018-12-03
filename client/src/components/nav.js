@@ -46,7 +46,7 @@ export default class Navigation extends React.Component {
   }
   render() {
     let administrationItem;
-    console.log(this.isAdmin)
+    console.log('in the navbar', this.props.isAdmin)
     if(this.props.isAdmin){
       administrationItem =
       <DropdownItem onClick={() => this.handleAdmin()}>Administration</DropdownItem>

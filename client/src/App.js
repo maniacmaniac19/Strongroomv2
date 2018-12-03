@@ -73,18 +73,19 @@ class App extends Component {
    console.log(this.state)
  }
 
- getUsers = () =>{
-  console.log("Get Users is running from app.js"); 
-  axios.get('/users')
-  .then(response => {
-    console.log("Get Users response")
-    console.log(response.data)
-   this.setState({
-     allUsers: response.data
-   });
-   console.log(this.state.allUsers)
-  })
-}
+//  getUsers = () =>{
+//   console.log("Get Users is running from app.js"); 
+//   axios.get('/users')
+//   .then(response => {
+//     console.log("Get Users response")
+//     console.log(response.data)
+//    this.setState({
+//      allUsers: response.data
+//    });
+//    console.log("State for all users")
+//    console.log(this.state.allUsers)
+//   })
+// }
 
 
  showVault = (user) =>{
@@ -120,14 +121,12 @@ hideContent = () =>{
 
     return (
       <div className="App">
-      <Animation type="bounceInDown">
         <Modal show={this.state.show} handleClose={this.hideModal} hideContent={this.hideContent} username={this.state.username} togglePassword={this.showhidepassword} handleAdd={this.vaultAdd} showVault={this.showVault} owner={this.state.username}>
         
         </Modal>
-        </Animation> 
         <Router>
           <Vault path='/secrets' showModal={this.showModal} showVault={this.showVault} isAdmin={this.state.isAdmin} secrets={this.state.secrets}/>
-          <Admin path='/administration' showModal={this.showModal} getUsers={this.getUsers} isAdmin={this.state.isAdmin} allUsers={this.state.allUsers}
+          <Administration path='/administration' showModal={this.showModal} getUsers={this.getUsers} isAdmin={this.state.isAdmin} allUsers={this.state.allUsers}
           secrets={this.state.secrets} showVault={this.showVault} hideContent={this.hideContent}
           />
           <PasswordChange path='/password' isAdmin={this.state.isAdmin} username={this.state.username}/>
