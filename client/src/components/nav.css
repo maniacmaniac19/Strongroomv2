@@ -8,3 +8,12 @@
     margin-bottom: 15px;
     color: white;
 }
+
+.dropdown{
+    position: relative;
+}
+
+.dropdownMenu{
+    position: absolute;
+    right: 0;
+}

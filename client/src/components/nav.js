@@ -12,6 +12,7 @@ import {
   DropdownMenu,
   DropdownItem } from 'reactstrap';
 import {navigate} from '@reach/router'
+import './nav.css';
 // import Administration from '../pages/administration'
 
 export default class Navigation extends React.Component {
@@ -73,7 +74,7 @@ export default class Navigation extends React.Component {
                 <DropdownToggle nav caret>
                   Settings
                 </DropdownToggle>
-                <DropdownMenu right>
+                <DropdownMenu className='dropdownMenu' left>
                   <DropdownItem onClick={() => this.changePassword()}>
                     Change Password
                   </DropdownItem>

@@ -18,6 +18,10 @@ app.use(session({
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
+
+    app.get("*", (req, res) => {
+      res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+    });
   }
 
 const routes = require('./routes/api-routes');
@@ -33,3 +37,5 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/strngrm_db");
 app.listen(PORT, function() {
     console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
   });
+
+ 
