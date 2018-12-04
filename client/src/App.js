@@ -113,7 +113,7 @@ hideContent = () =>{
       route = <PasswordChange path='/' username={this.state.username} isAdmin={this.state.isAdmin}/>
 
     } else if(this.state.isLoggedIn && !this.state.firstLogin) {
-      route = <Landing path='/' isAdmin={this.state.isAdmin} showModal={this.showModal} hideContent={this.hideContent} showVault={this.showVault} secrets={this.state.secrets} owner={this.state.username}/>;
+      route = <Landing path='/home' isAdmin={this.state.isAdmin} showModal={this.showModal} hideContent={this.hideContent} showVault={this.showVault} secrets={this.state.secrets} owner={this.state.username}/>;
     }
     else if(!this.state.isLoggedIn && this.state.firstLogin){
       route = <Login path = '/' onLogin={this.onLogin } isAdmin={this.state.isAdmin}/>

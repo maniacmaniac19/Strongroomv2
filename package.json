@@ -13,6 +13,7 @@
     "client": "cd client && npm run start",
     "seed": "node scripts/seedDB.js",
     "install": "cd client && npm install",
+    "postinstall": "npm run build",
     "build": "cd client && npm run build",
     "postbuild": "npm run build"
   },
